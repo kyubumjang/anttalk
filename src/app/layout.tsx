@@ -1,6 +1,11 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+
+import { Footer, Header } from "@/shared/ui";
+
+import Initializer from "@/mocks/Initializer";
+import type { Metadata } from "next";
+import Providers from "@/features/provider/Provider";
+import localFont from "next/font/local";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +31,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-screen h-screen min-h-screen m-0`}
       >
-        {children}
+        <Providers>
+          <main className="flex-1">
+            <div className="flex flex-col w-full h-full justify-start items-start relative">
+              <div className="flex flex-col w-full h-full justify-start items-start relative">
+                <Header />
+                <div className="flex flex-col w-full h-full justify-start items-start pt-16">
+                  {children}
+                </div>
+                <Initializer />
+              </div>
+            </div>
+          </main>
+          {/* FIXME: footer 하단 고정 필요 */}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
